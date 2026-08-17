@@ -1,0 +1,26 @@
+node_modules/
+dist/
+build/
+.cache/
+.env*
+.env
+.vite/
+vite.config.*.timestamp-*
+*.tsbuildinfo
+*-debug.log*
+logs/
+*.log
+.claude-replay.*
+.tmp-*
+
+# Environment and sensitive backend config
+backend/src/main/resources/application.yml
+backend/src/main/resources/application-*.yml
+backend/target/
+target/
+
+# Platform-managed agentplat state
+/.plugins/
+/.opencode-skills/
+*.onnx
+code*.txt

@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f5f5f5;
+  color: #1e1e1e;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 400ms cubic-bezier(0.4, 0, 0.2, 1), color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+/* ── Minimalist Scrollbar ── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+}
+
+/* ── Comprehensive Dark Mode Theme (Active when html has .dark class) ── */
+html.dark,
+html.dark body,
+html.dark #root {
+  background-color: #121214 !important;
+  color: #f3f4f6 !important;
+}
+
+/* 1. Large background & card shifts: White/Light -> Charcoal/Graphite/Black */
+html.dark .bg-\[\#f5f5f5\] {
+  background-color: #121214 !important;
+}
+
+html.dark .bg-\[\#ffffff\] {
+  background-color: #18181c !important;
+}
+
+html.dark .bg-\[\#fafafa\],
+html.dark .bg-\[\#f9f9f9\] {
+  background-color: #202026 !important;
+}
+
+html.dark .bg-\[\#f0f0f2\],
+html.dark .bg-\[\#eaeaea\],
+html.dark .bg-\[\#e5e5e5\] {
+  background-color: #26262e !important;
+}
+
+html.dark header.bg-\[\#ffffff\]\/90 {
+  background-color: rgba(22, 22, 25, 0.9) !important;
+}
+
+/* 2. Text Color Inversion: Dark text -> Bright/Light text */
+html.dark .text-\[\#1e1e1e\] {
+  color: #f3f4f6 !important;
+}
+
+html.dark .text-\[\#757575\] {
+  color: #a1a1aa !important;
+}
+
+html.dark .text-\[\#555555\] {
+  color: #d4d4d8 !important;
+}
+
+html.dark .text-\[\#b3b3b3\],
+html.dark ::placeholder {
+  color: #71717a !important;
+}
+
+/* 3. Border Inversions: Light borders -> Subtle dark borders */
+html.dark .border-\[\#d9d9d9\],
+html.dark .border-\[\#e5e5e5\],
+html.dark .border-\[\#f0f0f0\],
+html.dark .border-\[rgba\(20\,18\,24\,0\.08\)\],
+html.dark .border-\[rgba\(20\,18\,24\,0\.1\)\] {
+  border-color: #2e2e34 !important;
+}
+
+/* 4. Form inputs, textareas & dropdowns */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: #1a1a1e !important;
+  color: #f3f4f6 !important;
+  border-color: #2e2e34 !important;
+}
+
+html.dark input:focus,
+html.dark textarea:focus,
+html.dark select:focus {
+  border-color: #52525b !important;
+}
+
+/* 5. User Message Bubbles & Primary Action Buttons in Dark Mode */
+html.dark .bg-\[\#1e1e1e\] {
+  background-color: #f3f4f6 !important;
+  color: #121214 !important;
+}
+
+html.dark .bg-\[\#1e1e1e\] span,
+html.dark .bg-\[\#1e1e1e\] strong {
+  color: #121214 !important;
+}
+
+html.dark button.bg-\[\#1e1e1e\] {
+  background-color: #f3f4f6 !important;
+  color: #121214 !important;
+}
+
+html.dark button.bg-\[\#1e1e1e\]:hover {
+  background-color: #e4e4e7 !important;
+}
+
+/* 6. Dark mode tables & scrollbars */
+html.dark table {
+  border-color: #2e2e34 !important;
+}
+
+html.dark th,
+html.dark td {
+  border-color: #2e2e34 !important;
+}
+
+html.dark tr:nth-child(even) {
+  background-color: #1a1a1e !important;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #2e2e34;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* ── Comprehensive Hover Color Inversion System ── */
+/* When an element is hovered, its background flips contrast, and its inner text inverts cleanly */
+.card-hover {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Light Mode Hover: Light Surface -> Dark Surface, Inverting all inner text & icons to White */
+.card-hover:hover {
+  background-color: #1e1e1e !important;
+  border-color: #1e1e1e !important;
+  color: #ffffff !important;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+}
+
+.card-hover:hover * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+.card-hover:hover p,
+.card-hover:hover .text-\[\#757575\],
+.card-hover:hover .text-\[\#555555\] {
+  color: #d4d4d8 !important;
+}
+
+.card-hover:hover .text-\[\#1e1e1e\] {
+  color: #ffffff !important;
+}
+
+/* Dark Mode Hover: Dark Surface -> Bright Surface, Inverting all inner text & icons to Dark */
+html.dark .card-hover:hover {
+  background-color: #f3f4f6 !important;
+  border-color: #f3f4f6 !important;
+  color: #121214 !important;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(255, 255, 255, 0.12);
+}
+
+html.dark .card-hover:hover * {
+  color: #121214 !important;
+  stroke: #121214 !important;
+}
+
+html.dark .card-hover:hover p,
+html.dark .card-hover:hover .text-\[\#a1a1aa\],
+html.dark .card-hover:hover .text-\[\#757575\],
+html.dark .card-hover:hover .text-\[\#d4d4d8\] {
+  color: #3f3f46 !important;
+}
+
+html.dark .card-hover:hover .text-\[\#f3f4f6\] {
+  color: #121214 !important;
+}
+
+/* Generic Hover Inversion Utility (.hover-invert) for buttons, chips & items */
+.hover-invert {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-invert:hover {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+  border-color: #1e1e1e !important;
+}
+
+.hover-invert:hover * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+html.dark .hover-invert:hover {
+  background-color: #f3f4f6 !important;
+  color: #121214 !important;
+  border-color: #f3f4f6 !important;
+}
+
+html.dark .hover-invert:hover * {
+  color: #121214 !important;
+  stroke: #121214 !important;
+}
+
+/* ── Interactive Utility Styles ── */
+.btn-press {
+  transition: transform 0.12s ease, opacity 0.15s ease, background-color 0.15s ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* ── Business Professional Keyframes & Micro-animations ── */
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.995);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ── Animation Classes ── */
+.animate-page-enter {
+  animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 5s ease-in-out infinite;
+}
+
+/* ── Animation Delay Utilities ── */
+.delay-50 { animation-delay: 50ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
