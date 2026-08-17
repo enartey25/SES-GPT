@@ -30,22 +30,22 @@ public class GeminiService {
     private final ObjectMapper objectMapper;
 
     public GeminiService(
-            @Value("${gemini.api-key}") String apiKey,
-            @Value("${gemini.chat-model:gemini-flash-latest}") String chatModel,
+            @Value("${gemini.api-key:}") String apiKey,
+            @Value("${gemini.chat-model:gemini-1.5-flash}") String chatModel,
             @Value("${gemini.embedding-model:gemini-embedding-001}") String embeddingModel,
             @Value("${gemini.embedding-dimensions:1536}") int embeddingDimensions,
             @Value("${gemini.temperature:0.2}") double temperature,
-            @Value("${gemini.max-tokens:1024}") int maxTokens,
+            @Value("${gemini.max-tokens:2048}") int maxTokens,
             ObjectMapper objectMapper) {
         this.apiKey = apiKey != null ? apiKey.trim() : "";
-        this.primaryChatModel = chatModel != null ? chatModel.trim() : "gemini-flash-latest";
+        this.primaryChatModel = chatModel != null && !chatModel.isBlank() ? chatModel.trim() : "gemini-1.5-flash";
         this.embeddingModel = embeddingModel != null ? embeddingModel.trim() : "gemini-embedding-001";
         this.embeddingDimensions = embeddingDimensions;
         this.temperature = temperature;
         this.maxTokens = maxTokens;
         this.objectMapper = objectMapper;
         this.httpClient = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(3))
+                .connectTimeout(Duration.ofSeconds(30))
                 .build();
     }
 
@@ -70,7 +70,7 @@ public class GeminiService {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
-                    .timeout(Duration.ofSeconds(3))
+                    .timeout(Duration.ofSeconds(15))
                     .POST(HttpRequest.BodyPublishers.ofString(requestJson))
                     .build();
 
@@ -94,17 +94,19 @@ public class GeminiService {
     }
 
     /**
-     * Calls Gemini Chat Completion with short timeout and throws exception if quota exceeded so RagService falls back locally.
+     * Calls Gemini Chat Completion with full error transparency.
      */
     public String generateChatAnswer(String systemPrompt, String userPrompt) {
         if (apiKey.isBlank()) {
-            throw new RuntimeException("No Gemini API key configured.");
+            throw new RuntimeException("No GEMINI_API_KEY set in .env. Please add your Google Gemini API key to .env and restart.");
         }
 
         try {
             String url = String.format(
                     "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s",
                     primaryChatModel, apiKey);
+
+            log.info("Sending request to Google Gemini API [model={}, keyLength={}]", primaryChatModel, apiKey.length());
 
             Map<String, Object> bodyMap = new HashMap<>();
 
@@ -128,11 +130,13 @@ public class GeminiService {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
-                    .timeout(Duration.ofSeconds(3))
+                    .timeout(Duration.ofSeconds(30))
                     .POST(HttpRequest.BodyPublishers.ofString(requestJson))
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            log.info("Google Gemini API response status: {}", response.statusCode());
 
             if (response.statusCode() == 200) {
                 JsonNode root = objectMapper.readTree(response.body());
@@ -148,11 +152,16 @@ public class GeminiService {
                     }
                     return sb.toString().trim();
                 }
+                throw new RuntimeException("Gemini returned empty candidate content: " + response.body());
             }
-            throw new RuntimeException("Gemini API status " + response.statusCode());
+
+            // Report exact response body from Google AI Studio
+            log.error("Google Gemini API error (status {}): {}", response.statusCode(), response.body());
+            throw new RuntimeException("Google Gemini API error (status " + response.statusCode() + "): " + response.body());
+
         } catch (Exception e) {
-            log.warn("Gemini API unavailable ({}), activating local grounded answer generator", e.getMessage());
-            throw new RuntimeException("Gemini API unavailable: " + e.getMessage(), e);
+            log.error("Gemini API call failed: {}", e.getMessage(), e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 }

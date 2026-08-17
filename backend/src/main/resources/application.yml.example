@@ -40,7 +40,7 @@ jwt:
 gemini:
   api-key: ${GEMINI_API_KEY:}
   embedding-model: gemini-embedding-001
-  chat-model: gemini-flash-latest
+  chat-model: ${GEMINI_CHAT_MODEL:gemini-1.5-flash}
   embedding-dimensions: 1536
   max-tokens: 2048
   temperature: 0.15
