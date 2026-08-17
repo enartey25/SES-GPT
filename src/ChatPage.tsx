@@ -3,6 +3,7 @@ import type { MockUser } from './AuthPage'
 import MarkdownRenderer from './MarkdownRenderer'
 import { generateId } from './utils'
 import { API_BASE_URL, BACKEND_URL } from './config'
+import sesLogo from './assets/ses.jpg'
 
 type Source = { title: string; chunk: string; score: number; documentId?: string }
 type Message = { id: string; role: 'user' | 'assistant'; text: string; sources?: Source[] }
@@ -105,7 +106,7 @@ function MessageBubble({ msg, onInspectSource }: { msg: Message; onInspectSource
     <div className="flex justify-start animate-fade-in">
       <div className="max-w-full md:max-w-2xl w-full">
         <div className="flex items-center gap-2 mb-1.5">
-          <img src="/ses.jpg" alt="SES Logo" className="w-5 h-5 rounded-full object-contain border border-[#d9d9d9]" />
+          <img src={sesLogo} alt="SES Logo" className="w-5 h-5 rounded-full object-contain border border-[#d9d9d9]" />
           <span className="text-[12px] font-[600] text-[#757575] uppercase tracking-wider">
             SES-GPT
           </span>
@@ -138,7 +139,7 @@ function TypingBubble() {
     <div className="flex justify-start animate-fade-in">
       <div className="max-w-full md:max-w-2xl w-full">
         <div className="flex items-center gap-2 mb-1.5">
-          <img src="/ses.jpg" alt="SES Logo" className="w-5 h-5 rounded-full object-contain border border-[#d9d9d9]" />
+          <img src={sesLogo} alt="SES Logo" className="w-5 h-5 rounded-full object-contain border border-[#d9d9d9]" />
           <span className="text-[12px] font-[600] text-[#757575] uppercase tracking-wider">
             SES-GPT
           </span>

@@ -13,6 +13,7 @@ import { generateId } from './utils'
 import { API_BASE_URL } from './config'
 import ErrorBoundary from './ErrorBoundary'
 import ThemeToggle from './ThemeToggle'
+import sesLogo from './assets/ses.jpg'
 
 type Page = 'chat' | 'notifications' | 'announcements' | 'users' | 'profile'
 type AppView = 'landing' | 'auth' | 'dashboard'
@@ -107,7 +108,7 @@ function SplashScreen({ onFinish }: { onFinish: () => void }) {
         {/* Logo Container */}
         <div className="w-20 h-20 bg-[#ffffff] border border-[#d9d9d9] rounded-[20px] p-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] flex items-center justify-center animate-scale-in">
           <img
-            src="/ses.jpg"
+            src={sesLogo}
             alt="SES-GPT Logo"
             className="w-full h-full object-contain"
           />
@@ -152,7 +153,7 @@ function LandingPage({ onGetStarted, onSignIn }: { onGetStarted: () => void; onS
       <header className="sticky top-0 z-40 border-b border-[rgba(20,18,24,0.08)] bg-[#ffffff]/90 backdrop-blur-md transition-all">
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <img src="/ses.jpg" alt="SES Logo" className="w-8 h-8 rounded-full object-contain border border-[#d9d9d9] shadow-xs" />
+            <img src={sesLogo} alt="SES Logo" className="w-8 h-8 rounded-full object-contain border border-[#d9d9d9] shadow-xs" />
             <div className="flex flex-col">
               <span className="font-[600] text-[15px] text-[#1e1e1e] tracking-tight leading-none">SES-GPT</span>
               <span className="text-[11px] text-[#757575] font-[400]">Integrity and Innovation</span>
@@ -257,7 +258,7 @@ function LandingPage({ onGetStarted, onSignIn }: { onGetStarted: () => void; onS
                 <div className="flex justify-start">
                   <div className="max-w-xl w-full">
                     <div className="flex items-center gap-2 mb-1.5">
-                      <img src="/ses.jpg" alt="SES Logo" className="w-4 h-4 rounded-full object-contain border border-[#d9d9d9]" />
+                      <img src={sesLogo} alt="SES Logo" className="w-4 h-4 rounded-full object-contain border border-[#d9d9d9]" />
                       <span className="text-[11px] font-[600] text-[#757575] uppercase tracking-wider">SES-GPT</span>
                     </div>
                     <div className="bg-[#f9f9f9] border border-[#e5e5e5] rounded-[12px] rounded-tl-[4px] p-4 text-[13px] text-[#1e1e1e] leading-relaxed">
@@ -286,7 +287,7 @@ function LandingPage({ onGetStarted, onSignIn }: { onGetStarted: () => void; onS
                 <div className="flex justify-start">
                   <div className="max-w-xl w-full">
                     <div className="flex items-center gap-2 mb-1.5">
-                      <img src="/ses.jpg" alt="SES Logo" className="w-4 h-4 rounded-full object-contain border border-[#d9d9d9]" />
+                      <img src={sesLogo} alt="SES Logo" className="w-4 h-4 rounded-full object-contain border border-[#d9d9d9]" />
                       <span className="text-[11px] font-[600] text-[#757575] uppercase tracking-wider">SES-GPT</span>
                     </div>
                     <div className="bg-[#f9f9f9] border border-[#e5e5e5] rounded-[12px] rounded-tl-[4px] p-4 text-[13px] text-[#1e1e1e] leading-relaxed">
@@ -354,7 +355,7 @@ function LandingPage({ onGetStarted, onSignIn }: { onGetStarted: () => void; onS
       <footer className="border-t border-[rgba(20,18,24,0.08)] bg-[#ffffff] py-6 relative z-10">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-[#757575]">
           <div className="flex items-center gap-2">
-            <img src="/ses.jpg" alt="SES Logo" className="w-5 h-5 rounded-full object-contain" />
+            <img src={sesLogo} alt="SES Logo" className="w-5 h-5 rounded-full object-contain" />
             <span className="font-[600] text-[#1e1e1e]">SES-GPT</span>
           </div>
           <span>Integrity and Innovation · School of Engineering Sciences</span>

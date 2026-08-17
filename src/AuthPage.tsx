@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ThemeToggle from './ThemeToggle'
+import sesLogo from './assets/ses.jpg'
 import { API_BASE_URL } from './config'
 
 type AuthView = 'signin' | 'register' | 'forgot'
@@ -395,7 +396,7 @@ export default function AuthPage({ onAuth }: AuthPageProps) {
         {/* Top Logo & Title */}
         <div className="flex flex-col items-center text-center gap-2">
           <div className="w-14 h-14 rounded-full bg-[#ffffff] border border-[#d9d9d9] p-1.5 shadow-xs flex items-center justify-center">
-            <img src="/ses.jpg" alt="SES Logo" className="w-full h-full object-contain rounded-full" />
+            <img src={sesLogo} alt="SES Logo" className="w-full h-full object-contain rounded-full" />
           </div>
           <div>
             <h1 className="text-2xl font-[700] text-[#1e1e1e] tracking-tight">SES-GPT</h1>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import type { MockUser, Role } from './AuthPage'
 import ThemeToggle from './ThemeToggle'
+import sesLogo from './assets/ses.jpg'
 
 export interface ChatSession {
   id: string
@@ -106,7 +107,7 @@ export default function Dashboard({
           <div className="flex items-center justify-between px-1">
             <div className="flex items-center gap-2.5">
               <img
-                src="/ses.jpg"
+                src={sesLogo}
                 alt="SES Logo"
                 className="w-7 h-7 rounded-full object-contain border border-[#d9d9d9] shadow-xs"
               />
@@ -307,7 +308,7 @@ export default function Dashboard({
             <div className="flex flex-col gap-4 overflow-y-auto">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <img src="/ses.jpg" alt="SES Logo" className="w-6 h-6 rounded-full object-contain border border-[#d9d9d9]" />
+                  <img src={sesLogo} alt="SES Logo" className="w-6 h-6 rounded-full object-contain border border-[#d9d9d9]" />
                   <span className="text-[16px] font-[600] text-[#1e1e1e]">SES-GPT</span>
                 </div>
                 <button
@@ -418,7 +419,7 @@ export default function Dashboard({
             </svg>
           </button>
           <div className="flex items-center gap-1.5">
-            <img src="/ses.jpg" alt="SES Logo" className="w-5 h-5 rounded-full object-contain border border-[#d9d9d9]" />
+            <img src={sesLogo} alt="SES Logo" className="w-5 h-5 rounded-full object-contain border border-[#d9d9d9]" />
             <span className="text-[16px] font-[600] text-[#1e1e1e]">SES-GPT</span>
           </div>
           <div className="flex items-center gap-1.5">

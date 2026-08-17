@@ -3,6 +3,7 @@ import type { MockUser, Role } from './AuthPage'
 import type { Notification, SenderRole } from './NotificationsPage'
 import { generateId } from './utils'
 import { API_BASE_URL } from './config'
+import sesLogo from './assets/ses.jpg'
 
 interface AnnouncementsPageProps {
   user: MockUser
@@ -400,7 +401,7 @@ export default function AnnouncementsPage({ user, onBroadcast }: AnnouncementsPa
                       Target School
                     </label>
                     <div className="bg-[#fafafa] border border-[#d9d9d9] rounded-[10px] px-3.5 py-2.5 text-[13px] text-[#1e1e1e] font-[500] flex items-center gap-2 shadow-2xs">
-                      <img src="/ses.jpg" alt="SES" className="w-4 h-4 rounded-full object-contain" />
+                      <img src={sesLogo} alt="SES" className="w-4 h-4 rounded-full object-contain" />
                       <span>School of Engineering Sciences (SES)</span>
                     </div>
                   </div>
