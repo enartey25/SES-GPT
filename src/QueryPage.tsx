@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { generateId } from './utils'
+import sesLogo from './assets/logo'
 
 const DEPARTMENTS = [
   'Computer Engineering',
@@ -161,10 +162,8 @@ function MessageBubble({ msg }: { msg: Message }) {
     <div className="flex justify-start">
       <div className="max-w-2xl w-full">
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-5 h-5 rounded-full bg-cyan-400/10 border border-cyan-400/30 flex items-center justify-center">
-            <span style={{ fontFamily: 'var(--font-mono)' }} className="text-cyan-400 text-[8px] font-bold">A</span>
-          </div>
-          <span style={{ fontFamily: 'var(--font-mono)' }} className="text-[10px] text-slate-500 uppercase tracking-widest">Arcana</span>
+          <img src={sesLogo} alt="SES Logo" className="w-5 h-5 rounded-full object-contain border border-navy-600" />
+          <span style={{ fontFamily: 'var(--font-mono)' }} className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">SES-GPT</span>
         </div>
         <div className="bg-navy-800 border border-navy-700 rounded-2xl rounded-tl-sm px-5 py-4">
           <p className="text-slate-200 text-sm leading-relaxed mb-4">{msg.text}</p>
@@ -282,9 +281,12 @@ export default function QueryPage({ onBack }: QueryPageProps) {
               <path d="M10.5 3L5.5 8l5 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-          <div style={{ fontFamily: 'var(--font-mono)' }} className="flex items-center gap-1.5">
-            <span className="text-cyan-400 font-semibold text-sm">ARCANA</span>
-            <span className="text-navy-600 text-xs">RAG</span>
+          <div className="flex items-center gap-2">
+            <img src={sesLogo} alt="SES Logo" className="w-6 h-6 rounded-full object-contain border border-navy-600" />
+            <div style={{ fontFamily: 'var(--font-mono)' }} className="flex items-center gap-1.5">
+              <span className="text-cyan-400 font-semibold text-sm">SES-GPT</span>
+              <span className="text-slate-400 text-xs">RAG</span>
+            </div>
           </div>
         </div>
 

@@ -13,7 +13,7 @@ import { generateId } from './utils'
 import { API_BASE_URL } from './config'
 import ErrorBoundary from './ErrorBoundary'
 import ThemeToggle from './ThemeToggle'
-import sesLogo from './assets/ses.jpg'
+import sesLogo from './assets/logo'
 
 type Page = 'chat' | 'notifications' | 'announcements' | 'users' | 'profile'
 type AppView = 'landing' | 'auth' | 'dashboard'

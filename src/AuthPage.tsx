@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ThemeToggle from './ThemeToggle'
-import sesLogo from './assets/ses.jpg'
+import sesLogo from './assets/logo'
 import { API_BASE_URL } from './config'
 
 type AuthView = 'signin' | 'register' | 'forgot'

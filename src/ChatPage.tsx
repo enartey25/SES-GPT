@@ -3,7 +3,7 @@ import type { MockUser } from './AuthPage'
 import MarkdownRenderer from './MarkdownRenderer'
 import { generateId } from './utils'
 import { API_BASE_URL, BACKEND_URL } from './config'
-import sesLogo from './assets/ses.jpg'
+import sesLogo from './assets/logo'
 
 type Source = { title: string; chunk: string; score: number; documentId?: string }
 type Message = { id: string; role: 'user' | 'assistant'; text: string; sources?: Source[] }

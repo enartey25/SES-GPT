@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import type { MockUser, Role } from './AuthPage'
 import ThemeToggle from './ThemeToggle'
-import sesLogo from './assets/ses.jpg'
+import sesLogo from './assets/logo'
 
 export interface ChatSession {
   id: string

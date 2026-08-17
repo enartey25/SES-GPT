@@ -3,7 +3,7 @@ import type { MockUser, Role } from './AuthPage'
 import type { Notification, SenderRole } from './NotificationsPage'
 import { generateId } from './utils'
 import { API_BASE_URL } from './config'
-import sesLogo from './assets/ses.jpg'
+import sesLogo from './assets/logo'
 
 interface AnnouncementsPageProps {
   user: MockUser
