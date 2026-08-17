@@ -25,7 +25,7 @@ const MOCK_MANAGED: ManagedUser[] = [
   { id: '10673456', studentId: '10673456', name: 'Abena Frimpong', email: 'afrimpong@ug.edu.gh', role: 'student', department: 'Materials Science and Engineering', level: 'L400', status: 'pending', joinedAt: '2025-09-01' },
   { id: '10674567', studentId: '10674567', name: 'Yaw Darko', email: 'ydarko@ug.edu.gh', role: 'student', department: 'Food Process Engineering', level: 'L100', status: 'pending', joinedAt: '2025-09-01' },
   { id: 'TA-011', studentId: 'TA-011', name: 'Emmanuel Ansah', email: 'e.ansah@ug.edu.gh', role: 'ta', department: 'Biomedical Engineering', status: 'active', joinedAt: '2024-08-20' },
-  { id: 'STF-0042', studentId: 'STF-0042', name: 'Dr. Kwame Mensah', email: 'kmensah@ug.edu.gh', role: 'lecturer', department: 'Computer Engineering', status: 'active', joinedAt: '2023-01-05' },
+  { id: 'STF-0042', studentId: 'STF-0042', name: 'Dr. Godfrey Mills', email: 'gmills@ug.edu.gh', role: 'lecturer', department: 'Computer Engineering', status: 'active', joinedAt: '2023-01-05' },
   { id: '10675678', studentId: '10675678', name: 'Adjoa Nyarko', email: 'anyarko@ug.edu.gh', role: 'student', department: 'Biomedical Engineering', level: 'L300', status: 'suspended', joinedAt: '2024-09-01' },
 ]
 

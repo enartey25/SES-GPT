@@ -36,7 +36,7 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
     title: 'CPEN 302 Interim Assessment Venue Update',
     body: 'The interim assessment for CPEN 302 (Computer Networks) originally scheduled for CCB Lab 2 has been moved to CCB Lab 3 at 2:00 PM. Please report 15 minutes before the session with your UG Student ID.',
     senderRole: 'lecturer',
-    senderName: 'Dr. Kwame Mensah',
+    senderName: 'Dr. Godfrey Mills',
     department: 'Computer Engineering',
     targetRoles: ['student'],
     targetLevels: ['L300'],

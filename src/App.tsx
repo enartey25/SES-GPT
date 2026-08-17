@@ -261,7 +261,7 @@ function LandingPage({ onGetStarted, onSignIn }: { onGetStarted: () => void; onS
                       <span className="text-[11px] font-[600] text-[#757575] uppercase tracking-wider">SES-GPT</span>
                     </div>
                     <div className="bg-[#f9f9f9] border border-[#e5e5e5] rounded-[12px] rounded-tl-[4px] p-4 text-[13px] text-[#1e1e1e] leading-relaxed">
-                      According to the recent announcement from Dr. Mensah in the <strong>CPEN 302 Group Chat</strong>:
+                      According to the official announcement in the <strong>CPEN 302 Group Chat</strong>:
                       <ul className="list-disc pl-5 my-2 space-y-1">
                         <li><strong>Date and Time:</strong> Thursday, April 17, 2026 at 2:00 PM</li>
                         <li><strong>Venue:</strong> CCB Building, Lab 3</li>

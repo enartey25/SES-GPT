@@ -178,7 +178,7 @@ function ChatLoadingSkeleton({ title }: { title?: string | null }) {
   )
 }
 
-/* ── Source Thread Inspection Modal (20 Messages) ───────────────── */
+/* ── Source Thread / Document Inspection Modal ───────────────── */
 function ThreadInspectionModal({
   source,
   onClose,
@@ -203,8 +203,8 @@ function ThreadInspectionModal({
             if (Array.isArray(data.messages) && data.messages.length > 0) {
               const msgs = data.messages.map((m: any, idx: number) => ({
                 id: idx + 1,
-                sender: `Msg #${m.index || idx + 1}`,
-                time: 'Indexed Chunk',
+                sender: m.sender || `Message #${m.index || idx + 1}`,
+                time: m.timestamp || 'Indexed Passage',
                 text: m.content || '',
                 isCited: m.content?.includes(source.chunk) || source.chunk?.includes(m.content),
               }))
@@ -214,62 +214,22 @@ function ThreadInspectionModal({
             }
           }
         } catch {
-          // fallback
+          // fallback to display chunk
         }
       }
 
-      // Generate 20 surrounding messages around the cited source
-      const senders = ['Dr. Mensah', 'Class Rep Kojo', 'Ama Owusu', 'Prof. Boateng', 'TA Evans', 'Kwame Asante', 'Esi Mensah', 'Yaw Addo']
-      const mock20 = Array.from({ length: 20 }, (_, idx) => {
-        const msgNum = 400 + idx
-        const isTarget = idx === 11 || idx === 12
-        const sender = isTarget ? 'Dr. Mensah (Lecturer)' : senders[idx % senders.length]
-        const hour = 10 + Math.floor(idx / 6)
-        const minute = (idx * 3) % 60
-        const timeStr = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} AM`
+      // Display the authentic retrieved document chunk/passage directly
+      const cleanChunks = [
+        {
+          id: 1,
+          sender: source.title || 'Verified Document Source',
+          time: 'Retrieved Passage',
+          text: source.chunk || 'Reference document passage indexed in knowledge base.',
+          isCited: true,
+        },
+      ]
 
-        let content = ''
-        if (isTarget) {
-          content = source.chunk || 'Mid-semester exams and IA announcements: All students must report with approved calculators and UG student ID cards to CCB Lab 3.'
-        } else if (idx < 11) {
-          const preMessages = [
-            'Good morning everyone, please has the lecturer shared the slides for chapter 3?',
-            'Yes check the Sakai portal or the Google Drive link shared yesterday.',
-            'Is the assignment due this Friday or next Monday?',
-            'The TA said Friday 5:00 PM on Sakai.',
-            'Has anyone solved question 4 from tutorial sheet 2?',
-            'Yes, you need to apply Dijkstra’s shortest path algorithm first.',
-            'Please remember we have a class representative meeting today at 1:00 PM.',
-            'Thanks for the reminder.',
-            'Is attendance mandatory for today’s tutorial session?',
-            'Yes, Dr. Mensah said tutorial marks will form 10% of continuous assessment.',
-            'The lecturer just posted an update regarding the IA venue.',
-          ]
-          content = preMessages[idx % preMessages.length]
-        } else {
-          const postMessages = [
-            'Noted with thanks Dr. Mensah.',
-            'Please will past questions be discussed during revision week?',
-            'Yes, the TA will take us through the 2024 paper next Tuesday.',
-            'Thank you sir.',
-            'Can we form groups of 4 for the lab project?',
-            'Max group size is 3 students per group as announced earlier.',
-            'Understood, thank you.',
-            'All the best to everyone preparing for the IA.',
-          ]
-          content = postMessages[(idx - 13) % postMessages.length]
-        }
-
-        return {
-          id: msgNum,
-          sender,
-          time: timeStr,
-          text: content,
-          isCited: isTarget,
-        }
-      })
-
-      setThreadMessages(mock20)
+      setThreadMessages(cleanChunks)
       setLoading(false)
     }
 

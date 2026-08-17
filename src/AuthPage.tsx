@@ -42,7 +42,7 @@ const ROLES: { value: Role; label: string; desc: string }[] = [
 // Demo accounts with seeded credentials
 const MOCK_USERS: MockUser[] = [
   { id: '10671234', studentId: '10671234', name: 'Ama Owusu', email: 'ama.owusu@ug.edu.gh', role: 'student', department: 'Computer Engineering', level: 'L300' },
-  { id: 'STF-0042', studentId: 'STF-0042', name: 'Dr. Kwame Mensah', email: 'k.mensah@ug.edu.gh', role: 'lecturer', department: 'Computer Engineering' },
+  { id: 'STF-0042', studentId: 'STF-0042', name: 'Dr. Godfrey Mills', email: 'gmills@ug.edu.gh', role: 'lecturer', department: 'Computer Engineering' },
   { id: 'TA-011', studentId: 'TA-011', name: 'Emmanuel Ansah', email: 'e.ansah@ug.edu.gh', role: 'ta', department: 'Biomedical Engineering' },
   { id: 'HOD-002', studentId: 'HOD-002', name: 'Prof. Aba Bentil', email: 'hod.ce@ug.edu.gh', role: 'hod', department: 'Computer Engineering' },
   { id: 'DEAN-001', studentId: 'DEAN-001', name: 'Prof. Elvis Nyarko', email: 'dean.ses@ug.edu.gh', role: 'dean', department: 'Materials Science and Engineering' },
@@ -171,7 +171,7 @@ function SignInForm({
         id="login-id"
         value={identifier}
         onChange={setIdentifier}
-        placeholder="e.g. 10671234 or k.mensah@ug.edu.gh"
+        placeholder="e.g. 10671234 or gmills@ug.edu.gh"
       />
 
       <div className="flex flex-col gap-1.5">

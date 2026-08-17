@@ -115,8 +115,8 @@ public class SesGptApplication {
             User lecturer = userRepository.findByStudentId("LEC-1002").orElseGet(() ->
                 userRepository.save(User.builder()
                         .studentId("LEC-1002")
-                        .name("Dr. Kwame Mensah")
-                        .email("kmensah@ug.edu.gh")
+                        .name("Dr. Godfrey Mills")
+                        .email("gmills@ug.edu.gh")
                         .password(encodedPass)
                         .role(Role.LECTURER)
                         .department("Computer Engineering")
