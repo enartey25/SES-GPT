@@ -739,7 +739,7 @@ export default function ChatPage({
             <h1 className="text-[22px] font-[600] text-[#1e1e1e] mb-2 tracking-tight">
               {greetingData.greeting}
             </h1>
-            <p className="text-[#757575] text-[14px] leading-relaxed mb-6 max-w-md">
+            <p className="text-[#4b5563] dark:text-[#a1a1aa] text-[14px] leading-relaxed mb-6 max-w-md">
               {greetingData.subtitle}
             </p>
             {/* 4 Interactive Starter Cards */}
@@ -751,7 +751,7 @@ export default function ChatPage({
                   className="text-left text-[13px] font-[500] text-[#1e1e1e] bg-[#ffffff] border border-[#d9d9d9] rounded-[10px] p-4 hover:border-[#1e1e1e] transition-all shadow-2xs card-hover cursor-pointer leading-snug flex items-start justify-between gap-2"
                 >
                   <span>"{q}"</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" className="shrink-0 mt-0.5 opacity-60">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4b5563" strokeWidth="2" className="shrink-0 mt-0.5 opacity-60">
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
                   </svg>
                 </button>
@@ -782,7 +782,7 @@ export default function ChatPage({
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading}
-              className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[#757575] hover:text-[#1e1e1e] hover:bg-[#f5f5f5] transition-colors cursor-pointer disabled:opacity-50"
+              className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[#4b5563] hover:text-[#1e1e1e] hover:bg-[#f5f5f5] transition-colors cursor-pointer disabled:opacity-50"
               title="Upload WhatsApp Chat (.txt/.zip) or document"
               aria-label="Upload document"
             >
@@ -812,7 +812,7 @@ export default function ChatPage({
                   ? `Ask anything about ${activeDocumentTitle}…`
                   : 'Message SES-GPT or attach a chat…'
               }
-              className="flex-1 bg-transparent text-[#1e1e1e] text-[14px] font-[400] placeholder-[#b3b3b3] resize-none focus:outline-none leading-relaxed disabled:opacity-50 py-1"
+              className="flex-1 bg-transparent text-[#1e1e1e] text-[14px] font-[400] placeholder-[#6b7280] dark:placeholder-[#a1a1aa] resize-none focus:outline-none leading-relaxed disabled:opacity-50 py-1"
               style={{ maxHeight: 100 }}
               onInput={e => {
                 const t = e.currentTarget

@@ -134,7 +134,7 @@ export default function Dashboard({
 
           {/* Search Bar */}
           <div className="flex items-center px-4 py-2 gap-2 bg-[#ffffff] border border-[#d9d9d9] rounded-full shadow-xs">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4b5563" strokeWidth="2" strokeLinecap="round">
               <circle cx="11" cy="11" r="8" />
               <path d="M21 21l-4.35-4.35" />
             </svg>
@@ -143,12 +143,12 @@ export default function Dashboard({
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search chats…"
-              className="flex-1 border-none outline-none font-['Inter',sans-serif] text-[13px] font-[400] text-[#1e1e1e] bg-transparent placeholder-[#b3b3b3]"
+              className="flex-1 border-none outline-none font-['Inter',sans-serif] text-[13px] font-[400] text-[#1e1e1e] bg-transparent placeholder-[#6b7280]"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="text-[#757575] hover:text-[#1e1e1e] text-[12px] cursor-pointer"
+                className="text-[#4b5563] hover:text-[#1e1e1e] text-[12px] cursor-pointer"
               >
                 ✕
               </button>
@@ -168,7 +168,7 @@ export default function Dashboard({
                       className={`w-full flex items-center justify-between px-3 py-2 rounded-[8px] text-[14px] transition-colors cursor-pointer ${
                         active
                           ? 'bg-[#ffffff] font-[600] text-[#1e1e1e] shadow-2xs'
-                          : 'bg-transparent text-[#1e1e1e] font-[400] hover:bg-[#eaeaea]'
+                          : 'bg-transparent text-[#1e1e1e] font-[500] hover:bg-[#eaeaea]'
                       }`}
                     >
                       <span>{item.label}</span>
@@ -176,7 +176,7 @@ export default function Dashboard({
 
                     {/* Nested Sub-Section: Your Chats */}
                     <div className="ml-3 pl-3 border-l border-[#d9d9d9] flex flex-col gap-1 my-1">
-                      <div className="text-[11px] font-[600] uppercase tracking-wider text-[#757575] px-2 py-1">
+                      <div className="text-[11px] font-[600] uppercase tracking-wider text-[#4b5563] dark:text-[#a1a1aa] px-2 py-1">
                         Your Chats
                       </div>
 
@@ -186,7 +186,7 @@ export default function Dashboard({
                         className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-[6px] text-[12.5px] transition-all cursor-pointer text-left ${
                           activePage === 'chat' && activeDocumentId === null
                             ? 'bg-[#ffffff] font-[600] text-[#1e1e1e] shadow-2xs'
-                            : 'text-[#555555] hover:bg-[#eaeaea] hover:text-[#1e1e1e] font-[400]'
+                            : 'text-[#374151] dark:text-[#d4d4d8] hover:bg-[#eaeaea] hover:text-[#1e1e1e] font-[450]'
                         }`}
                       >
                         <span className="truncate">General Knowledge Base</span>
@@ -201,7 +201,7 @@ export default function Dashboard({
                             className={`group flex items-center justify-between px-2.5 py-1.5 rounded-[6px] text-[12.5px] transition-all cursor-pointer ${
                               isSelected
                                 ? 'bg-[#ffffff] font-[600] text-[#1e1e1e] shadow-2xs'
-                                : 'text-[#555555] hover:bg-[#eaeaea] hover:text-[#1e1e1e] font-[400]'
+                                : 'text-[#374151] dark:text-[#d4d4d8] hover:bg-[#eaeaea] hover:text-[#1e1e1e] font-[450]'
                             }`}
                           >
                             <button
