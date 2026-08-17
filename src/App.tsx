@@ -9,6 +9,8 @@ import type { Notification } from './NotificationsPage'
 import AnnouncementsPage from './AnnouncementsPage'
 import ProfilePage from './ProfilePage'
 import UsersPage from './UsersPage'
+import { generateId } from './utils'
+import { API_BASE_URL } from './config'
 import ErrorBoundary from './ErrorBoundary'
 import ThemeToggle from './ThemeToggle'
 
@@ -390,7 +392,7 @@ export default function App() {
     const token = localStorage.getItem('ses_token')
     if (!token) return
     try {
-      const res = await fetch('http://localhost:8080/api/whatsapp/sessions', {
+      const res = await fetch(`${API_BASE_URL}/whatsapp/sessions`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       if (res.ok) {
@@ -409,7 +411,7 @@ export default function App() {
     const token = localStorage.getItem('ses_token')
     const query = studentId ? `?studentId=${encodeURIComponent(studentId)}` : ''
     try {
-      const res = await fetch(`http://localhost:8080/api/notifications${query}`, {
+      const res = await fetch(`${API_BASE_URL}/notifications${query}`, {
         headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) },
       })
       if (res.ok) {
@@ -475,7 +477,7 @@ export default function App() {
     // 2. Synchronize directly with PostgreSQL backend database
     const token = localStorage.getItem('ses_token')
     if (token) {
-      fetch('http://localhost:8080/api/users/profile', {
+      fetch(`${API_BASE_URL}/users/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -527,7 +529,7 @@ export default function App() {
     const token = localStorage.getItem('ses_token')
     if (!token) return
     try {
-      await fetch(`http://localhost:8080/api/whatsapp/sessions/${id}`, {
+      await fetch(`${API_BASE_URL}/whatsapp/sessions/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       })

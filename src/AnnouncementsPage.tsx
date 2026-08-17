@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import type { MockUser, Role } from './AuthPage'
 import type { Notification, SenderRole } from './NotificationsPage'
 import { generateId } from './utils'
+import { API_BASE_URL } from './config'
 
 interface AnnouncementsPageProps {
   user: MockUser
@@ -127,7 +128,7 @@ export default function AnnouncementsPage({ user, onBroadcast }: AnnouncementsPa
   // Fetch announcements history from Spring Boot backend on mount
   useEffect(() => {
     const token = localStorage.getItem('ses_token')
-    fetch('http://localhost:8080/api/announcements', {
+    fetch(`${API_BASE_URL}/announcements`, {
       headers: {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
@@ -231,7 +232,7 @@ export default function AnnouncementsPage({ user, onBroadcast }: AnnouncementsPa
     // 1. Broadcast to PostgreSQL backend database
     let backendId = generateId()
     try {
-      const res = await fetch('http://localhost:8080/api/announcements', {
+      const res = await fetch(`${API_BASE_URL}/announcements`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

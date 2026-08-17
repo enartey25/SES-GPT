@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import type { MockUser } from './AuthPage'
 import MarkdownRenderer from './MarkdownRenderer'
 import { generateId } from './utils'
+import { API_BASE_URL, BACKEND_URL } from './config'
 
 type Source = { title: string; chunk: string; score: number; documentId?: string }
 type Message = { id: string; role: 'user' | 'assistant'; text: string; sources?: Source[] }
@@ -194,7 +195,7 @@ function ThreadInspectionModal({
       const token = localStorage.getItem('ses_token')
       if (source.documentId) {
         try {
-          const res = await fetch(`http://localhost:8080/api/whatsapp/sessions/${source.documentId}/thread`, {
+          const res = await fetch(`${API_BASE_URL}/whatsapp/sessions/${source.documentId}/thread`, {
             headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) },
           })
           if (res.ok) {
@@ -506,7 +507,7 @@ export default function ChatPage({
     formData.append('file', file)
 
     try {
-      const res = await fetch('http://localhost:8080/api/whatsapp/upload', {
+      const res = await fetch(`${API_BASE_URL}/whatsapp/upload`, {
         method: 'POST',
         headers: {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -548,7 +549,7 @@ export default function ChatPage({
     const token = localStorage.getItem('ses_token')
 
     try {
-      const endpoint = activeDocumentId ? 'http://localhost:8080/api/chat/whatsapp' : 'http://localhost:8080/api/chat'
+      const endpoint = activeDocumentId ? `${API_BASE_URL}/chat/whatsapp` : `${API_BASE_URL}/chat`
       const payload = activeDocumentId ? { question: text, documentId: activeDocumentId } : { question: text }
 
       const res = await fetch(endpoint, {
@@ -597,7 +598,7 @@ export default function ChatPage({
         {
           id: generateId(),
           role: 'assistant',
-          text: `**Connection Error:** Could not reach the backend at http://localhost:8080. Please ensure the Spring Boot server is running. (${err.message})`,
+          text: `**Connection Error:** Could not reach the backend at ${BACKEND_URL}. Please ensure the Spring Boot server is running. (${err.message})`,
         },
       ])
     } finally {

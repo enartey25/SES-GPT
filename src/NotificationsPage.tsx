@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { MockUser, Role } from './AuthPage'
+import { API_BASE_URL } from './config'
 
 export type SenderRole = 'ta' | 'lecturer' | 'hod' | 'dean' | 'admin'
 
@@ -107,7 +108,7 @@ export default function NotificationsPage({
   useEffect(() => {
     const token = localStorage.getItem('ses_token')
     const query = user?.studentId ? `?studentId=${encodeURIComponent(user.studentId)}` : ''
-    fetch(`http://localhost:8080/api/notifications${query}`, {
+    fetch(`${API_BASE_URL}/notifications${query}`, {
       headers: {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
@@ -156,7 +157,7 @@ export default function NotificationsPage({
 
     const token = localStorage.getItem('ses_token')
     const query = user?.studentId ? `?studentId=${encodeURIComponent(user.studentId)}` : ''
-    fetch(`http://localhost:8080/api/notifications/read-all${query}`, {
+    fetch(`${API_BASE_URL}/notifications/read-all${query}`, {
       method: 'PUT',
       headers: {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -171,7 +172,7 @@ export default function NotificationsPage({
       updateNotifications(updated)
 
       const token = localStorage.getItem('ses_token')
-      fetch(`http://localhost:8080/api/notifications/${n.id}/read`, {
+      fetch(`${API_BASE_URL}/notifications/${n.id}/read`, {
         method: 'PUT',
         headers: {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import type { MockUser } from './AuthPage'
+import { API_BASE_URL } from './config'
 
 type SavedSession = { id: string; title: string; fileName: string; createdAt: string }
 
@@ -23,7 +24,7 @@ export default function WhatsAppUploadPage({ user, onDocumentUploaded }: WhatsAp
     if (!token) return
     setLoadingSessions(true)
     try {
-      const res = await fetch('http://localhost:8080/api/whatsapp/sessions', {
+      const res = await fetch(`${API_BASE_URL}/whatsapp/sessions`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       if (res.ok) {
@@ -51,7 +52,7 @@ export default function WhatsAppUploadPage({ user, onDocumentUploaded }: WhatsAp
     formData.append('file', f)
 
     try {
-      const res = await fetch('http://localhost:8080/api/whatsapp/upload', {
+      const res = await fetch(`${API_BASE_URL}/whatsapp/upload`, {
         method: 'POST',
         headers: {
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -74,7 +75,7 @@ export default function WhatsAppUploadPage({ user, onDocumentUploaded }: WhatsAp
       setUploadError(errorMsg)
       setUploading(false)
     } catch (err: any) {
-      setUploadError(`Could not connect to backend server: ${err.message}. Ensure backend is running on port 8080.`)
+      setUploadError(`Could not connect to backend server: ${err.message}. Ensure backend is running.`)
       setUploading(false)
     }
   }
@@ -84,7 +85,7 @@ export default function WhatsAppUploadPage({ user, onDocumentUploaded }: WhatsAp
     const token = localStorage.getItem('ses_token')
     if (!token) return
     try {
-      const res = await fetch(`http://localhost:8080/api/whatsapp/sessions/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/whatsapp/sessions/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       })

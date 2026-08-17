@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import type { MockUser, Role } from './AuthPage'
 import { DEPARTMENTS } from './AuthPage'
 import AvatarViewerModal from './AvatarViewerModal'
+import { API_BASE_URL } from './config'
 
 interface UsersPageProps { user: MockUser }
 
@@ -73,7 +74,7 @@ export default function UsersPage({ user: admin }: UsersPageProps) {
     if (!token) return
     setLoading(true)
     try {
-      const res = await fetch('http://localhost:8080/api/users', {
+      const res = await fetch(`${API_BASE_URL}/users`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       if (res.ok) {
@@ -112,14 +113,14 @@ export default function UsersPage({ user: admin }: UsersPageProps) {
 
     try {
       if (token) {
-        const res = await fetch(`http://localhost:8080/api/users/${lookupKey}/verify`, {
+        const res = await fetch(`${API_BASE_URL}/users/${lookupKey}/verify`, {
           method: 'PUT',
           headers: { Authorization: `Bearer ${token}` },
         })
         if (!res.ok) {
           // Retry with alternate ID if available
           if (targetId && targetId !== lookupKey) {
-            await fetch(`http://localhost:8080/api/users/${targetId}/verify`, {
+            await fetch(`${API_BASE_URL}/users/${targetId}/verify`, {
               method: 'PUT',
               headers: { Authorization: `Bearer ${token}` },
             })
@@ -143,7 +144,7 @@ export default function UsersPage({ user: admin }: UsersPageProps) {
 
     try {
       if (token) {
-        await fetch(`http://localhost:8080/api/users/${lookupKey}/suspend`, {
+        await fetch(`${API_BASE_URL}/users/${lookupKey}/suspend`, {
           method: 'PUT',
           headers: { Authorization: `Bearer ${token}` },
         })
@@ -165,7 +166,7 @@ export default function UsersPage({ user: admin }: UsersPageProps) {
 
     try {
       if (token) {
-        await fetch(`http://localhost:8080/api/users/${lookupKey}/reinstate`, {
+        await fetch(`${API_BASE_URL}/users/${lookupKey}/reinstate`, {
           method: 'PUT',
           headers: { Authorization: `Bearer ${token}` },
         })

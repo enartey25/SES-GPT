@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ThemeToggle from './ThemeToggle'
+import { API_BASE_URL } from './config'
 
 type AuthView = 'signin' | 'register' | 'forgot'
 
@@ -116,7 +117,7 @@ function SignInForm({
     setLoading(true)
 
     try {
-      const res = await fetch('http://localhost:8080/api/auth/login', {
+      const res = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier, password }),
@@ -366,7 +367,7 @@ export default function AuthPage({ onAuth }: AuthPageProps) {
 
   const quickLogin = async (u: MockUser) => {
     try {
-      const res = await fetch('http://localhost:8080/api/auth/login', {
+      const res = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier: u.id, password: 'password123' }),
