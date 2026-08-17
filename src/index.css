@@ -20,11 +20,40 @@ html, body {
   height: 100%;
   width: 100%;
   background-color: #f5f5f5;
-  color: #1e1e1e;
+  color: #000000;
   font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 400ms cubic-bezier(0.4, 0, 0.2, 1), color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Light Mode High-Contrast Typography ── */
+.markdown-body,
+.markdown-body p,
+.markdown-body li,
+.markdown-body span,
+.markdown-body td,
+.markdown-body th,
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  color: #000000 !important;
+}
+
+.markdown-body strong {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.markdown-body a {
+  color: #000000 !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+}
+
+.markdown-body code {
+  color: #000000 !important;
 }
 
 #root {
@@ -84,7 +113,35 @@ html.dark header.bg-\[\#ffffff\]\/90 {
 }
 
 /* 2. Text Color Inversion: Dark text -> Bright/Light text */
-html.dark .text-\[\#1e1e1e\] {
+html.dark .text-\[\#1e1e1e\],
+html.dark .text-\[\#000000\] {
+  color: #f3f4f6 !important;
+}
+
+html.dark .markdown-body,
+html.dark .markdown-body p,
+html.dark .markdown-body li,
+html.dark .markdown-body span,
+html.dark .markdown-body td,
+html.dark .markdown-body th,
+html.dark .markdown-body h1,
+html.dark .markdown-body h2,
+html.dark .markdown-body h3,
+html.dark .markdown-body h4 {
+  color: #f3f4f6 !important;
+}
+
+html.dark .markdown-body strong {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+html.dark .markdown-body a {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
+
+html.dark .markdown-body code {
   color: #f3f4f6 !important;
 }
 

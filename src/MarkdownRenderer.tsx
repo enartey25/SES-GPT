@@ -12,7 +12,7 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
   const blocks = parseMarkdownBlocks(content)
 
   return (
-    <div className={`markdown-body flex flex-col gap-3 text-[#1e1e1e] dark:text-[#f3f4f6] text-[14px] leading-relaxed ${className}`}>
+    <div className={`markdown-body flex flex-col gap-3 text-[#000000] dark:text-[#f3f4f6] text-[14px] leading-relaxed ${className}`}>
       {blocks.map((block, idx) => (
         <React.Fragment key={idx}>{renderBlock(block, idx)}</React.Fragment>
       ))}
@@ -171,26 +171,26 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
       const text = renderInline(block.text)
       if (block.level === 1) {
         return (
-          <h1 key={key} className="text-[17px] font-[700] text-[#1e1e1e] dark:text-[#ffffff] tracking-tight border-b border-[rgba(20,18,24,0.08)] dark:border-[#33333e] pb-2 mt-4 mb-2">
+          <h1 key={key} className="text-[17px] font-[700] text-[#000000] dark:text-[#ffffff] tracking-tight border-b border-[rgba(20,18,24,0.12)] dark:border-[#33333e] pb-2 mt-4 mb-2">
             {text}
           </h1>
         )
       }
       if (block.level === 2) {
         return (
-          <h2 key={key} className="text-[15px] font-[650] text-[#1e1e1e] dark:text-[#ffffff] tracking-tight mt-3 mb-1.5">
+          <h2 key={key} className="text-[15px] font-[700] text-[#000000] dark:text-[#ffffff] tracking-tight mt-3 mb-1.5">
             {text}
           </h2>
         )
       }
       if (block.level === 3) {
         return (
-          <h3 key={key} className="text-[14px] font-[600] text-[#1e1e1e] dark:text-[#f3f4f6] mt-2.5 mb-1">
+          <h3 key={key} className="text-[14px] font-[700] text-[#000000] dark:text-[#f3f4f6] mt-2.5 mb-1">
             {text}
           </h3>
         )
       }
-      return <h4 key={key} className="text-[13px] font-[600] text-[#757575] dark:text-[#a1a1aa] uppercase tracking-wider mt-2 mb-1">{text}</h4>
+      return <h4 key={key} className="text-[13px] font-[700] text-[#000000] dark:text-[#a1a1aa] uppercase tracking-wider mt-2 mb-1">{text}</h4>
     }
 
     case 'code':
@@ -203,7 +203,7 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
             <thead>
               <tr className="bg-[#f5f5f5] dark:bg-[#202026] border-b border-[#d9d9d9] dark:border-[#33333e]">
                 {block.headers.map((h, hIdx) => (
-                  <th key={hIdx} className="px-3.5 py-2.5 font-[600] text-[#1e1e1e] dark:text-[#ffffff] tracking-wide">
+                  <th key={hIdx} className="px-3.5 py-2.5 font-[700] text-[#000000] dark:text-[#ffffff] tracking-wide">
                     {renderInline(h)}
                   </th>
                 ))}
@@ -213,7 +213,7 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
               {block.rows.map((row, rIdx) => (
                 <tr key={rIdx} className={rIdx % 2 === 1 ? 'bg-[#fafafa] dark:bg-[#1f1f27]' : 'bg-transparent'}>
                   {row.map((cell, cIdx) => (
-                    <td key={cIdx} className="px-3.5 py-2 text-[#1e1e1e] dark:text-[#f3f4f6] leading-relaxed">
+                    <td key={cIdx} className="px-3.5 py-2 text-[#000000] dark:text-[#f3f4f6] leading-relaxed">
                       {renderInline(cell)}
                     </td>
                   ))}
@@ -228,8 +228,8 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
       return (
         <ul key={key} className="flex flex-col gap-1.5 my-1.5 pl-1.5">
           {block.items.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2.5 text-[#1e1e1e] dark:text-[#f3f4f6]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1e1e1e] dark:bg-[#ffffff] shrink-0 mt-2" />
+            <li key={idx} className="flex items-start gap-2.5 text-[#000000] dark:text-[#f3f4f6]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#000000] dark:bg-[#ffffff] shrink-0 mt-2" />
               <span className="flex-1 leading-relaxed">{renderInline(item)}</span>
             </li>
           ))}
@@ -240,9 +240,9 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
       return (
         <ol key={key} className="flex flex-col gap-1.5 my-1.5 pl-1">
           {block.items.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2.5 text-[#1e1e1e] dark:text-[#f3f4f6]">
+            <li key={idx} className="flex items-start gap-2.5 text-[#000000] dark:text-[#f3f4f6]">
               <span
-                className="text-[11.5px] font-[600] text-[#1e1e1e] dark:text-[#ffffff] bg-[#f0f0f0] dark:bg-[#26262e] border border-[#d9d9d9] dark:border-[#33333e] rounded-[4px] px-1.5 py-0.2 shrink-0 mt-0.5"
+                className="text-[11.5px] font-[700] text-[#000000] dark:text-[#ffffff] bg-[#f0f0f0] dark:bg-[#26262e] border border-[#000000] dark:border-[#33333e] rounded-[4px] px-1.5 py-0.2 shrink-0 mt-0.5"
               >
                 {idx + 1}
               </span>
@@ -253,7 +253,7 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
       )
 
     case 'blockquote': {
-      let borderClass = 'border-[#1e1e1e] bg-[#f5f5f5] text-[#1e1e1e] dark:border-[#ffffff] dark:bg-[#202026] dark:text-[#f3f4f6]'
+      let borderClass = 'border-[#000000] bg-[#f5f5f5] text-[#000000] dark:border-[#ffffff] dark:bg-[#202026] dark:text-[#f3f4f6]'
       let badge = ''
       if (block.alertType === 'warning' || block.alertType === 'caution') {
         borderClass = 'border-[#eab308] bg-[#fefce8] text-[#854d0e] dark:bg-[#2a2410] dark:text-[#fef08a]'
@@ -267,7 +267,7 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
       }
 
       return (
-        <div key={key} className={`border-l-4 pl-3.5 py-2 my-2 rounded-r-[8px] text-[13px] leading-relaxed ${borderClass}`}>
+        <div key={key} className={`border-l-4 pl-3.5 py-2 my-2 rounded-r-[8px] text-[13.5px] leading-relaxed ${borderClass}`}>
           {badge && <strong className="font-bold mr-1">{badge}</strong>}
           {renderInline(block.text)}
         </div>
@@ -275,10 +275,10 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
     }
 
     case 'hr':
-      return <hr key={key} className="border-[rgba(20,18,24,0.08)] dark:border-[#33333e] my-3" />
+      return <hr key={key} className="border-[rgba(20,18,24,0.12)] dark:border-[#33333e] my-3" />
 
     case 'paragraph':
-      return <p key={key} className="text-[#1e1e1e] dark:text-[#f3f4f6] leading-relaxed my-0.5">{renderInline(block.text)}</p>
+      return <p key={key} className="text-[#000000] dark:text-[#f3f4f6] leading-relaxed my-0.5">{renderInline(block.text)}</p>
 
     default:
       return null
@@ -345,7 +345,7 @@ function renderInline(text: string): React.ReactNode {
       return (
         <code
           key={pIdx}
-          className="bg-[#f0f0f0] dark:bg-[#26262e] border border-[#d9d9d9] dark:border-[#3a3a46] text-[#1e1e1e] dark:text-[#f3f4f6] px-1.5 py-0.5 rounded-[4px] text-[12px] font-[600] font-mono"
+          className="bg-[#f0f0f0] dark:bg-[#26262e] border border-[#cccccc] dark:border-[#3a3a46] text-[#000000] dark:text-[#f3f4f6] px-1.5 py-0.5 rounded-[4px] text-[12px] font-[700] font-mono"
         >
           {codeContent}
         </code>
@@ -365,7 +365,7 @@ function formatInlineStyles(text: string): React.ReactNode {
     if ((chunk.startsWith('**') && chunk.endsWith('**')) || (chunk.startsWith('__') && chunk.endsWith('__'))) {
       const inner = chunk.slice(2, -2)
       return (
-        <strong key={idx} className="font-[700] text-[#1e1e1e] dark:text-[#ffffff]">
+        <strong key={idx} className="font-[700] text-[#000000] dark:text-[#ffffff]">
           {inner}
         </strong>
       )
@@ -373,7 +373,7 @@ function formatInlineStyles(text: string): React.ReactNode {
 
     if (chunk.startsWith('~~') && chunk.endsWith('~~')) {
       return (
-        <del key={idx} className="line-through text-[#757575] dark:text-[#a1a1aa]">
+        <del key={idx} className="line-through text-[#4b5563] dark:text-[#a1a1aa]">
           {chunk.slice(2, -2)}
         </del>
       )
@@ -381,7 +381,7 @@ function formatInlineStyles(text: string): React.ReactNode {
 
     if ((chunk.startsWith('*') && chunk.endsWith('*')) || (chunk.startsWith('_') && chunk.endsWith('_'))) {
       return (
-        <em key={idx} className="italic text-[#1e1e1e] dark:text-[#f3f4f6]">
+        <em key={idx} className="italic text-[#000000] dark:text-[#f3f4f6]">
           {chunk.slice(1, -1)}
         </em>
       )
@@ -395,7 +395,7 @@ function formatInlineStyles(text: string): React.ReactNode {
           href={linkMatch[2]}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#1e1e1e] dark:text-[#ffffff] underline underline-offset-2 hover:opacity-80 transition-opacity font-[600]"
+          className="text-[#000000] dark:text-[#ffffff] underline underline-offset-2 hover:opacity-80 transition-opacity font-[700]"
         >
           {linkMatch[1]}
         </a>
