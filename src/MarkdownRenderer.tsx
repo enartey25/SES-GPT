@@ -12,7 +12,7 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
   const blocks = parseMarkdownBlocks(content)
 
   return (
-    <div className={`markdown-body flex flex-col gap-2.5 text-slate-200 text-sm leading-relaxed ${className}`}>
+    <div className={`markdown-body flex flex-col gap-3 text-[#1e1e1e] dark:text-[#f3f4f6] text-[14px] leading-relaxed ${className}`}>
       {blocks.map((block, idx) => (
         <React.Fragment key={idx}>{renderBlock(block, idx)}</React.Fragment>
       ))}
@@ -100,19 +100,21 @@ function parseMarkdownBlocks(md: string): BlockType[] {
         quoteLines.push(lines[i].replace(/^\s*>\s?/, ''))
         i++
       }
-      const fullQuote = quoteLines.join('\n').trim()
+      const rawText = quoteLines.join(' ')
       let alertType: 'note' | 'tip' | 'important' | 'warning' | 'caution' | undefined
-      const alertMatch = fullQuote.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(.*)$/i)
-      let cleanText = fullQuote
+      let cleanText = rawText
+
+      const alertMatch = rawText.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(.*)/i)
       if (alertMatch) {
         alertType = alertMatch[1].toLowerCase() as any
         cleanText = alertMatch[2]
       }
+
       blocks.push({ type: 'blockquote', text: cleanText, alertType })
       continue
     }
 
-    // 6. Unordered List (- item, * item)
+    // 6. Unordered List (-, *, +)
     if (/^\s*[-*+]\s+/.test(line)) {
       const items: string[] = []
       while (i < lines.length && /^\s*[-*+]\s+/.test(lines[i])) {
@@ -123,7 +125,7 @@ function parseMarkdownBlocks(md: string): BlockType[] {
       continue
     }
 
-    // 7. Ordered List (1. item)
+    // 7. Ordered List (1. ...)
     if (/^\s*\d+\.\s+/.test(line)) {
       const items: string[] = []
       while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
@@ -134,7 +136,7 @@ function parseMarkdownBlocks(md: string): BlockType[] {
       continue
     }
 
-    // 8. Empty line
+    // 8. Empty lines
     if (line.trim() === '') {
       i++
       continue
@@ -169,49 +171,49 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
       const text = renderInline(block.text)
       if (block.level === 1) {
         return (
-          <h1 className="text-xl font-bold text-white tracking-tight border-b border-navy-700 pb-2 mt-3 mb-1 text-cyan-300">
+          <h1 key={key} className="text-[17px] font-[700] text-[#1e1e1e] dark:text-[#ffffff] tracking-tight border-b border-[rgba(20,18,24,0.08)] dark:border-[#33333e] pb-2 mt-4 mb-2">
             {text}
           </h1>
         )
       }
       if (block.level === 2) {
         return (
-          <h2 className="text-base font-semibold text-white tracking-tight mt-3 mb-1 text-cyan-200">
+          <h2 key={key} className="text-[15px] font-[650] text-[#1e1e1e] dark:text-[#ffffff] tracking-tight mt-3 mb-1.5">
             {text}
           </h2>
         )
       }
       if (block.level === 3) {
         return (
-          <h3 className="text-sm font-semibold text-slate-100 mt-2 mb-0.5 text-cyan-100">
+          <h3 key={key} className="text-[14px] font-[600] text-[#1e1e1e] dark:text-[#f3f4f6] mt-2.5 mb-1">
             {text}
           </h3>
         )
       }
-      return <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mt-2">{text}</h4>
+      return <h4 key={key} className="text-[13px] font-[600] text-[#757575] dark:text-[#a1a1aa] uppercase tracking-wider mt-2 mb-1">{text}</h4>
     }
 
     case 'code':
-      return <CodeBlock code={block.code} language={block.language} />
+      return <CodeBlock key={key} code={block.code} language={block.language} />
 
     case 'table':
       return (
-        <div className="overflow-x-auto my-3 rounded-xl border border-navy-700 bg-navy-950/80 shadow-md">
-          <table className="w-full text-left text-xs border-collapse">
+        <div key={key} className="overflow-x-auto my-3 rounded-[10px] border border-[#d9d9d9] dark:border-[#33333e] bg-[#ffffff] dark:bg-[#18181c] shadow-xs">
+          <table className="w-full text-left text-[13px] border-collapse">
             <thead>
-              <tr className="bg-navy-900 border-b border-navy-700">
+              <tr className="bg-[#f5f5f5] dark:bg-[#202026] border-b border-[#d9d9d9] dark:border-[#33333e]">
                 {block.headers.map((h, hIdx) => (
-                  <th key={hIdx} className="px-3.5 py-2.5 font-semibold text-cyan-300 tracking-wide">
+                  <th key={hIdx} className="px-3.5 py-2.5 font-[600] text-[#1e1e1e] dark:text-[#ffffff] tracking-wide">
                     {renderInline(h)}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-navy-800">
+            <tbody className="divide-y divide-[#ebebeb] dark:divide-[#2d2d38]">
               {block.rows.map((row, rIdx) => (
-                <tr key={rIdx} className={rIdx % 2 === 1 ? 'bg-navy-900/30' : 'bg-transparent'}>
+                <tr key={rIdx} className={rIdx % 2 === 1 ? 'bg-[#fafafa] dark:bg-[#1f1f27]' : 'bg-transparent'}>
                   {row.map((cell, cIdx) => (
-                    <td key={cIdx} className="px-3.5 py-2 text-slate-300 leading-relaxed">
+                    <td key={cIdx} className="px-3.5 py-2 text-[#1e1e1e] dark:text-[#f3f4f6] leading-relaxed">
                       {renderInline(cell)}
                     </td>
                   ))}
@@ -224,10 +226,10 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
 
     case 'ul':
       return (
-        <ul className="flex flex-col gap-1.5 my-1.5 pl-1.5">
+        <ul key={key} className="flex flex-col gap-1.5 my-1.5 pl-1.5">
           {block.items.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2.5 text-slate-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-2" />
+            <li key={idx} className="flex items-start gap-2.5 text-[#1e1e1e] dark:text-[#f3f4f6]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1e1e1e] dark:bg-[#ffffff] shrink-0 mt-2" />
               <span className="flex-1 leading-relaxed">{renderInline(item)}</span>
             </li>
           ))}
@@ -236,12 +238,11 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
 
     case 'ol':
       return (
-        <ol className="flex flex-col gap-1.5 my-1.5 pl-1">
+        <ol key={key} className="flex flex-col gap-1.5 my-1.5 pl-1">
           {block.items.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2.5 text-slate-200">
+            <li key={idx} className="flex items-start gap-2.5 text-[#1e1e1e] dark:text-[#f3f4f6]">
               <span
-                style={{ fontFamily: 'var(--font-mono)' }}
-                className="text-[11px] font-semibold text-cyan-400 bg-navy-900 border border-cyan-400/30 rounded px-1.5 py-0.2 shrink-0 mt-0.5"
+                className="text-[11.5px] font-[600] text-[#1e1e1e] dark:text-[#ffffff] bg-[#f0f0f0] dark:bg-[#26262e] border border-[#d9d9d9] dark:border-[#33333e] rounded-[4px] px-1.5 py-0.2 shrink-0 mt-0.5"
               >
                 {idx + 1}
               </span>
@@ -252,21 +253,21 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
       )
 
     case 'blockquote': {
-      let borderClass = 'border-cyan-400 bg-cyan-400/10 text-cyan-200'
+      let borderClass = 'border-[#1e1e1e] bg-[#f5f5f5] text-[#1e1e1e] dark:border-[#ffffff] dark:bg-[#202026] dark:text-[#f3f4f6]'
       let badge = ''
       if (block.alertType === 'warning' || block.alertType === 'caution') {
-        borderClass = 'border-amber-400 bg-amber-400/10 text-amber-200'
+        borderClass = 'border-[#eab308] bg-[#fefce8] text-[#854d0e] dark:bg-[#2a2410] dark:text-[#fef08a]'
         badge = '⚠️ WARNING: '
       } else if (block.alertType === 'important') {
-        borderClass = 'border-rose-400 bg-rose-400/10 text-rose-200'
+        borderClass = 'border-[#e11d48] bg-[#fff1f2] text-[#9f1239] dark:bg-[#2e1218] dark:text-[#fecdd3]'
         badge = '📌 IMPORTANT: '
       } else if (block.alertType === 'tip') {
-        borderClass = 'border-emerald-400 bg-emerald-400/10 text-emerald-200'
+        borderClass = 'border-[#10b981] bg-[#ecfdf5] text-[#065f46] dark:bg-[#0f291e] dark:text-[#a7f3d0]'
         badge = '💡 TIP: '
       }
 
       return (
-        <div className={`border-l-4 pl-3.5 py-2 my-2 rounded-r-lg text-xs leading-relaxed ${borderClass}`}>
+        <div key={key} className={`border-l-4 pl-3.5 py-2 my-2 rounded-r-[8px] text-[13px] leading-relaxed ${borderClass}`}>
           {badge && <strong className="font-bold mr-1">{badge}</strong>}
           {renderInline(block.text)}
         </div>
@@ -274,10 +275,10 @@ function renderBlock(block: BlockType, key: number): React.ReactNode {
     }
 
     case 'hr':
-      return <hr className="border-navy-700 my-3" />
+      return <hr key={key} className="border-[rgba(20,18,24,0.08)] dark:border-[#33333e] my-3" />
 
     case 'paragraph':
-      return <p className="text-slate-200 leading-relaxed my-0.5">{renderInline(block.text)}</p>
+      return <p key={key} className="text-[#1e1e1e] dark:text-[#f3f4f6] leading-relaxed my-0.5">{renderInline(block.text)}</p>
 
     default:
       return null
@@ -294,22 +295,21 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
   }
 
   return (
-    <div className="my-3 rounded-xl border border-navy-700 bg-navy-950 overflow-hidden shadow-lg">
-      <div className="flex items-center justify-between px-3.5 py-1.5 bg-navy-900 border-b border-navy-800 text-[11px]">
-        <span style={{ fontFamily: 'var(--font-mono)' }} className="text-slate-400 font-medium lowercase">
+    <div className="my-3 rounded-[10px] border border-[#2d2d38] bg-[#141417] overflow-hidden shadow-xs">
+      <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#1e1e24] border-b border-[#2d2d38] text-[11px]">
+        <span className="text-[#a1a1aa] font-medium lowercase font-mono">
           {language || 'code'}
         </span>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 text-slate-400 hover:text-cyan-300 transition-colors cursor-pointer"
-          style={{ fontFamily: 'var(--font-mono)' }}
+          className="flex items-center gap-1.5 text-[#a1a1aa] hover:text-[#ffffff] transition-colors cursor-pointer"
         >
           {copied ? (
             <>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2.5">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
-              <span className="text-emerald-400">Copied!</span>
+              <span className="text-[#10b981]">Copied!</span>
             </>
           ) : (
             <>
@@ -322,7 +322,7 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
           )}
         </button>
       </div>
-      <pre style={{ fontFamily: 'var(--font-mono)' }} className="p-3.5 text-xs text-cyan-200 overflow-x-auto leading-relaxed">
+      <pre className="p-3.5 text-[12.5px] text-[#f3f4f6] font-mono overflow-x-auto leading-relaxed">
         <code>{code}</code>
       </pre>
     </div>
@@ -345,8 +345,7 @@ function renderInline(text: string): React.ReactNode {
       return (
         <code
           key={pIdx}
-          style={{ fontFamily: 'var(--font-mono)' }}
-          className="bg-navy-900/90 border border-navy-700 text-cyan-300 px-1.5 py-0.5 rounded text-[11px] font-semibold"
+          className="bg-[#f0f0f0] dark:bg-[#26262e] border border-[#d9d9d9] dark:border-[#3a3a46] text-[#1e1e1e] dark:text-[#f3f4f6] px-1.5 py-0.5 rounded-[4px] text-[12px] font-[600] font-mono"
         >
           {codeContent}
         </code>
@@ -366,7 +365,7 @@ function formatInlineStyles(text: string): React.ReactNode {
     if ((chunk.startsWith('**') && chunk.endsWith('**')) || (chunk.startsWith('__') && chunk.endsWith('__'))) {
       const inner = chunk.slice(2, -2)
       return (
-        <strong key={idx} className="font-semibold text-white">
+        <strong key={idx} className="font-[700] text-[#1e1e1e] dark:text-[#ffffff]">
           {inner}
         </strong>
       )
@@ -374,7 +373,7 @@ function formatInlineStyles(text: string): React.ReactNode {
 
     if (chunk.startsWith('~~') && chunk.endsWith('~~')) {
       return (
-        <del key={idx} className="line-through text-slate-500">
+        <del key={idx} className="line-through text-[#757575] dark:text-[#a1a1aa]">
           {chunk.slice(2, -2)}
         </del>
       )
@@ -382,7 +381,7 @@ function formatInlineStyles(text: string): React.ReactNode {
 
     if ((chunk.startsWith('*') && chunk.endsWith('*')) || (chunk.startsWith('_') && chunk.endsWith('_'))) {
       return (
-        <em key={idx} className="italic text-slate-300">
+        <em key={idx} className="italic text-[#1e1e1e] dark:text-[#f3f4f6]">
           {chunk.slice(1, -1)}
         </em>
       )
@@ -396,7 +395,7 @@ function formatInlineStyles(text: string): React.ReactNode {
           href={linkMatch[2]}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 transition-colors font-medium"
+          className="text-[#1e1e1e] dark:text-[#ffffff] underline underline-offset-2 hover:opacity-80 transition-opacity font-[600]"
         >
           {linkMatch[1]}
         </a>
