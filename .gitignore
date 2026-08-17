@@ -13,9 +13,6 @@ logs/
 .claude-replay.*
 .tmp-*
 
-# Environment and sensitive backend config
-backend/src/main/resources/application.yml
-backend/src/main/resources/application-*.yml
 backend/target/
 target/
 
