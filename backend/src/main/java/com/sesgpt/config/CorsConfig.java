@@ -30,6 +30,8 @@ public class CorsConfig {
                                 "http://localhost:*",
                                 "http://127.0.0.1:*",
                                 "https://ses-gpt.ug.edu.gh",
+                                "https://*.vercel.app",
+                                "https://*.up.railway.app",
                                 "*"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")

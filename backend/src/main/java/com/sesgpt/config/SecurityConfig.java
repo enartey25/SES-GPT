@@ -60,6 +60,8 @@ public class SecurityConfig {
                 "http://localhost:*",
                 "http://127.0.0.1:*",
                 "https://ses-gpt.ug.edu.gh",
+                "https://*.vercel.app",
+                "https://*.up.railway.app",
                 "*"
         ));
         config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
