@@ -140,7 +140,13 @@ public class RagService {
                 .collect(Collectors.toList());
 
         String context = buildContext(chunks);
-        String answer = geminiService.generateChatAnswer(GENERAL_SYSTEM_PROMPT, context + "\n\nQUESTION: " + correctedQuestion);
+        String answer;
+        try {
+            answer = geminiService.generateChatAnswer(GENERAL_SYSTEM_PROMPT, context + "\n\nQUESTION: " + correctedQuestion);
+        } catch (Exception e) {
+            log.warn("Gemini synthesis error ({}): activating grounded extractive fallback.", e.getMessage());
+            answer = synthesizeLocalAnswer(question, chunks);
+        }
 
         return ChatResponse.builder().answer(answer).sources(sources).build();
     }
@@ -251,7 +257,14 @@ public class RagService {
                 "CONTEXT PASSAGES FROM WHATSAPP HISTORY:\n\n%s\n\n[REFERENCE TODAY'S DATE: %s]\nUSER QUESTION: %s",
                 context, LocalDate.now(), question
         );
-        String answer = geminiService.generateChatAnswer(WHATSAPP_SYSTEM_PROMPT, prompt);
+        String answer;
+        try {
+            answer = geminiService.generateChatAnswer(WHATSAPP_SYSTEM_PROMPT, prompt);
+        } catch (Exception e) {
+            log.warn("Gemini synthesis error for document query ({}): activating grounded extractive fallback.", e.getMessage());
+            List<DocumentChunk> fallbackChunks = chronologicalSelection.stream().map(ScoredChunk::chunk).toList();
+            answer = synthesizeLocalAnswer(question, fallbackChunks);
+        }
 
         return ChatResponse.builder().answer(answer).sources(sources).build();
     }
