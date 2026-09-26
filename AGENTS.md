@@ -1,8 +1,31 @@
-# figma-make-app
+# SES-GPT Documentation
 
-React + Vite + Tailwind CSS project running inside Figma Make.
+SES-GPT is a full-stack application consisting of a React + Vite + Tailwind CSS frontend and a Spring Boot (Java 21) backend.
+
+## Architecture
+- **Frontend**: React, Vite, Tailwind CSS v4. Runs on port 8443 (Figma Make) or standard Vite dev server.
+- **Backend**: Spring Boot 3.x, Java 21, PostgreSQL with pgvector, LangChain4j for local ONNX embeddings.
+- **Database**: PostgreSQL (Supabase/RDS/Local) with vector extension.
 
 ## Development Server
+
+A Vite development server is **already running** on `$PORT` (default 8443). You don't need to start it manually.
+
+- **Backend**: Requires a running PostgreSQL instance. Start via `mvn spring-boot:run` in the `backend/` directory.
+- **Environment**: Copy `.env.example` to `.env` and configure `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, and `SPRING_DATASOURCE_PASSWORD`.
+
+## Project Structure
+
+This is the canonical structure:
+- `backend/`: Spring Boot application (Java 21, Maven).
+- `src/`: React frontend source code.
+- `.figma/make/`: Figma Make configuration files.
+
+## Styling
+
+This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin configured in `vite.config.ts`. `src/index.css` imports Tailwind with `@import 'tailwindcss';`. Use Tailwind utility classes directly in JSX and put global CSS or Tailwind v4 theme customization in `src/index.css`. This scaffold does not need a Tailwind config file or PostCSS config.
+
+`src/main.tsx` imports `s`
 
 A Vite development server is **already running** on `$PORT` (default 8443). You don't need to start it manually.
 
