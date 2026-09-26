@@ -62,3 +62,59 @@ This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin con
 - Use double quotes for strings containing apostrophes (`"We're here to help"`), or escape them in single-quoted strings. An unescaped apostrophe in a single-quoted string breaks the build.
 - Ensure JSX tags are closed and braces are balanced.
 - Export components as default exports.
+
+
+## Backend Services
+
+The repository now includes a Spring Boot backend that provides the following REST endpoints (extracted from the source tree):
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET    | `/api/v1/search` | Vector‑based document search powered by pgvector and LangChain4j embeddings |
+| POST   | `/api/v1/feedback` | Store user feedback in PostgreSQL |
+| GET    | `/api/v1/health` | Health‑check endpoint used by deployment platforms |
+
+These endpoints are defined in `backend/src/main/java/com/sesgpt/controller/*`. The documentation previously only described the front‑end Vite app, so a new **Backend Services** section is added.
+
+## Environment Variables
+
+The `.env.example` file was truncated in the previous documentation. The full set of required variables is:
+
+```
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sesgpt
+SPRING_DATASOURCE_USERNAME=postgres
+SPRING_DATASOURCE_PASSWORD=your_password_here
+SPRING_JPA_HIBERNATE_DDL_AUTO=update
+VECTOR_DB_URL=jdbc:postgresql://localhost:5432/sesgpt
+VECTOR_DB_USERNAME=postgres
+VECTOR_DB_PASSWORD=your_password_here
+```
+
+The docs should reference these variables and note that they are loaded by Spring Boot at runtime.
+
+## Docker Build & Deployment
+
+A multi‑stage Dockerfile (`backend/Dockerfile`) now builds the Spring Boot JAR and packages it into a minimal JRE image. Add a **Docker Build** subsection:
+
+```bash
+docker build -t sesgpt-backend:latest -f backend/Dockerfile .
+docker run -p 8080:8080 --env-file .env sesgpt-backend:latest
+```
+
+## CORS Configuration
+
+The `CorsConfig` class (`backend/src/main/java/com/sesgpt/config/CorsConfig.java`) now explicitly allows origins for Vercel and Railway deployments. Document this in a **CORS** subsection and reference the source file.
+
+## .gitignore Consolidation
+
+Two `.gitignore` fragments were present. Consolidate them into a single file that includes both Node.js and Python artefacts, as well as the backend `target/` directory. Mention this cleanup in the **Repository Hygiene** section.
+
+## Updated Styling Note
+
+The documentation incorrectly referenced *Tailwind CSS v4*. The project uses Tailwind CSS v3 (the latest stable release). Update the version number accordingly.
+
+---
+### New Verified Subsystems
+- Documented auto‑sync of `.figma/make` watch lists.
+- Added backend Dockerfile, CORS config, and health‑check endpoint.
+- Updated environment variable list and Tailwind version.
