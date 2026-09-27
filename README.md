@@ -1,4 +1,32 @@
-# SES-GPT: Academic Neural Retrieval & Communication Intelligence Platform
+# SES-GPT
+## Core Services & Configuration
+
+### Backend Environment Variables
+The application expects the following variables (see `.env.example`):
+
+| Variable | Description |
+|----------|-------------|
+| `SPRING_DATASOURCE_URL` | JDBC URL for PostgreSQL (e.g., `jdbc:postgresql://localhost:5432/sesgpt`) |
+| `SPRING_DATASOURCE_USERNAME` | Database user |
+| `SPRING_DATASOURCE_PASSWORD` | Database password |
+| `OPENAI_API_KEY` | API key for OpenAI (used by LangChain4j) |
+| `PGVECTOR_HOST` | Host for pgvector extension (if external) |
+
+### Docker Build & Run
+```bash
+docker build -t sesgpt-backend:latest -f backend/Dockerfile .
+docker run -p 8080:8080 --env-file .env sesgpt-backend:latest
+```
+
+### API Endpoints
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/v1/search` | Vector‑based document search |
+| POST | `/api/v1/feedback` | Store user feedback |
+| GET | `/api/v1/health` | Health check |
+
+ - 
+
 
 [![React 19](https://img.shields.io/badge/Frontend-React%2019-61dafb.svg)](https://react.dev/)
 [![Spring Boot 3.3](https://img.shields.io/badge/Backend-Spring%20Boot%203.3.2-6db33f.svg)](https://spring.io/projects/spring-boot)
